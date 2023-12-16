@@ -62,6 +62,10 @@ hashicorp_repo/
 ## License
 
 This project is licensed under the [GPL-3.0](LICENSE).
+
+## Author Information
+
+Created by Johan Sörell 16 December 2023
+
 ```
 
-Feel free to adjust and customize this README.md according to your preferences and any additional information you want to provide regarding the usage or configuration of the role.
