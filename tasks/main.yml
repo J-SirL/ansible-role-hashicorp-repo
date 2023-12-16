@@ -16,25 +16,12 @@
         state: present
       when: ansible_distribution == 'AlmaLinux' and ansible_distribution_major_version == '9'
 
-- name: Install Packer and Vagrant with KVM support on AlmaLinux 9
+- name: Install Packer and Vagrant on AlmaLinux 9
   block:
     - name: Install required packages
       ansible.builtin.package:
         name:
           - packer
           - vagrant
-          #- qemu-kvm
-          #- libvirt
-          #- libvirt-devel
-          #- virt-install
-          #- bridge-utils
-          #- libguestfs-tools
         state: present
-      when: ansible_distribution == 'AlmaLinux' and ansible_distribution_major_version == '9'
-
-    - name: Start and enable libvirtd service
-      ansible.builtin.service:
-        name: libvirtd
-        state: started
-        enabled: yes
       when: ansible_distribution == 'AlmaLinux' and ansible_distribution_major_version == '9'
