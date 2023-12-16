@@ -64,7 +64,7 @@ hashicorp_repo/
 This project is licensed under the [GPL-3.0](LICENSE).
 
 ## Author Information
-
+```
 Created by Johan Sörell 16 December 2023
 
 ```
