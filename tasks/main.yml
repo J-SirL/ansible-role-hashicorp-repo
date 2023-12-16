@@ -23,12 +23,12 @@
         name:
           - packer
           - vagrant
-          - qemu-kvm
-          - libvirt
-          - libvirt-devel
-          - virt-install
-          - bridge-utils
-          - libguestfs-tools
+          #- qemu-kvm
+          #- libvirt
+          #- libvirt-devel
+          #- virt-install
+          #- bridge-utils
+          #- libguestfs-tools
         state: present
       when: ansible_distribution == 'AlmaLinux' and ansible_distribution_major_version == '9'
 
