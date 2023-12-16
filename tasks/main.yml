@@ -1,2 +1,40 @@
 ---
 # tasks file for ansible-role-hashicorp-repo
+- name: Add HashiCorp repository for AlmaLinux 9
+  block:
+    - name: Add HashiCorp GPG Key
+      ansible.builtin.rpm_key:
+        key: https://rpm.releases.hashicorp.com/gpg
+
+    - name: Add HashiCorp repository
+      ansible.builtin.yum_repository:
+        name: hashicorp
+        description: HashiCorp Linux repository
+        baseurl: https://rpm.releases.hashicorp.com/AlmaLinux/9/$basearch/stable
+        gpgcheck: yes
+        gpgkey: https://rpm.releases.hashicorp.com/gpg
+        state: present
+      when: ansible_distribution == 'AlmaLinux' and ansible_distribution_major_version == '9'
+
+- name: Install Packer and Vagrant with KVM support on AlmaLinux 9
+  block:
+    - name: Install required packages
+      ansible.builtin.package:
+        name:
+          - packer
+          - vagrant
+          - qemu-kvm
+          - libvirt
+          - libvirt-devel
+          - virt-install
+          - bridge-utils
+          - libguestfs-tools
+        state: present
+      when: ansible_distribution == 'AlmaLinux' and ansible_distribution_major_version == '9'
+
+    - name: Start and enable libvirtd service
+      ansible.builtin.service:
+        name: libvirtd
+        state: started
+        enabled: yes
+      when: ansible_distribution == 'AlmaLinux' and ansible_distribution_major_version == '9'
