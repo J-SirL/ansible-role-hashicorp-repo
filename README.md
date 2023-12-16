@@ -1,38 +1,93 @@
-Role Name
-=========
+# HashiCorp Repository Setup Ansible Role
 
-hashicorp_repo configures hashicorp_repo and install packer and vagrant for AlmaLinux 9 / Rocky Linux 9 / Oracle Linux 9 etc..
+## Overview
 
-Requirements
-------------
+This Ansible role sets up the HashiCorp repository and installs Packer and Vagrant specifically for AlmaLinux 9.
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+## Prerequisites
 
-Role Variables
---------------
+- Ansible installed on the control node.
+- Target hosts must be running AlmaLinux 9.
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+## Role Structure
 
-Dependencies
-------------
+```
+hashicorp_repo/
+├── tasks/
+│   └── main.yml
+├── handlers/
+│   └── main.yml
+└── README.md
+```
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+## Instructions
+ You can either clone the repository or create an requirements.yml to add repo in your own project
+ ### Clone the repository 
 
-Example Playbook
-----------------
+   ```bash
+   git clone git@github.com:J-SirL/ansible-role-hashicorp-repo.git
+   ```
+ ### Create an requirements.yml to add repo in your own project
+  
+  ```bash
+   #Create requirements.yml in your git repository
+   cd your-git-repo
+   mkdir -p roles # if you do not have a roles folder
+   vi roles/requirements.yml
+   ```
+   #### Paste in the below in roles/requirements.yml
+   ```bash
+   ---
+   roles:
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+     - name: JsirL.hashicorp_repo
+       src: git@github.com:J-SirL/ansible-role-hashicorp-repo.git
+       scm: git
+       version: main
+   ```
+   #### Install the role with ansible-galaxy using your newly created requirements.yml
+   ```bash
+   ansible-galaxy install -r roles/requirements.yml
+   ```
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+   ### Create an Ansible playbook
 
-License
--------
+   Create a playbook to use the `hashicorp_repo` role.
 
-BSD
+   ```yaml
+   ---
+   - name: Install and configure HashiCorp tools packer and vagrant on AlmaLinux 9
+     hosts: almalinux_servers
+     gather_facts: yes
+     become: true
+     tasks:
+       - name: Include the hashicorp_repo role
+         ansible.builtin.include_role:
+           name: JsirL.hashicorp_repo
+   ```
 
-Author Information
-------------------
+3. **Execute the playbook:**
 
+   Run the playbook using the following command:
+
+   ```bash
+   ansible-playbook -i inventory_file <playbook_name>.yml
+   ```
+
+   Replace `<playbook_name>` with your playbook filename and `inventory_file` with your host inventory.
+
+## Notes
+
+- This role is specifically designed for AlmaLinux 9 and might need adjustments for other distributions.
+- Ensure proper network connectivity for downloading HashiCorp repository keys and packages.
+
+## License
+
+This project is licensed under the [GPL-3.0](LICENSE).
+
+## Author Information
+```
 Created by Johan Sörell 16 December 2023
+
+```
+
