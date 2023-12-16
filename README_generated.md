@@ -41,7 +41,7 @@ hashicorp_repo/
      tasks:
        - name: Include the hashicorp_repo role
          ansible.builtin.include_role:
-           name: hashicorp_repo
+           name: JsirL.hashicorp_repo
    ```
 
 3. **Execute the playbook:**
