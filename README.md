@@ -12,12 +12,16 @@ This Ansible role sets up the HashiCorp repository and installs Packer and Vagra
 ## Role Structure
 
 ```
-hashicorp_repo/
-├── tasks/
+JsirL.hashicorp_repo/
+├── LICENSE
+├── meta
 │   └── main.yml
-├── handlers/
+├── README.md
+├── tasks
 │   └── main.yml
-└── README.md
+└── tests
+    ├── inventory
+    └── test.yml
 ```
 
 ## Instructions
